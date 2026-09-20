@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card shadow-sm">
+    <div class="card-body">
+        <h5>ارسال پاسخ جدید</h5>
+        <form method="POST">
+            {% csrf_token %}
+            <!-- فیلد مخفی برای ارسال ID تیکت به ویو -->
+            <input type="hidden" name="ticket" value="{{ ticket.id }}">
+            
+            <div class="mb-3">
+                <textarea name="message" class="form-control" rows="4" placeholder="پیام خود را اینجا تایپ کنید..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">ارسال پیام</button>
+            <a href="{% url 'ticket_detail' ticket.id %}" class="btn btn-link">بازگشت به تیکت</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

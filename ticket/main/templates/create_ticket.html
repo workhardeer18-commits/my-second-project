@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header bg-white">
+                <h4 class="mb-0">ایجاد تیکت جدید</h4>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label class="form-label">موضوع تیکت</label>
+                        <input type="text" name="subject" class="form-control" placeholder="مثلاً: مشکل در پرداخت" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">متن پیام</label>
+                        <textarea name="text" class="form-control" rows="5" placeholder="جزئیات مشکل خود را بنویسید..." required></textarea>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <a href="{% url 'index' %}" class="btn btn-outline-secondary">انصراف</a>
+                        <button type="submit" class="btn btn-primary">ارسال تیکت</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

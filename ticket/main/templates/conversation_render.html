@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">لیست تیکت‌ها</h2>
+        <a href="{% url 'create_ticket' %}" class="btn btn-primary">
+            <i class="bi bi-plus-lg"></i> ایجاد تیکت جدید
+        </a>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="row">
+        {% if tickets %}
+            {% for ticket in tickets %}
+                <div class="col-md-6 col-lg-4 mb-4">
+                    <div class="card h-100 shadow-sm border-0">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h5 class="card-title text-primary text-truncate" style="max-width: 70%;">
+                                    {{ ticket.subject }}
+                                </h5>
+                                <span class="badge {% if ticket.user.user_type == 'admin' %}bg-danger{% else %}bg-info{% endif %}">
+                                    {{ ticket.user.user_type|title }}
+                                </span>
+                            </div>
+                            <p class="card-text text-muted small mb-3">
+                                <i class="bi bi-chat-dots"></i> {{ ticket.conversations.count }} پیام
+                            </p>
+                            <p class="card-text text-secondary text-truncate">
+                                {{ ticket.text }}
+                            </p>
+                        </div>
+                        <div class="card-footer bg-transparent border-top-0 pb-3">
+                            <a href="{% url 'ticket_detail' ticket.id %}" class="btn btn-outline-primary w-100">
+                                مشاهده گفتگو
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12 text-center py-5">
+                <div class="alert alert-light shadow-sm">
+                    <h4 class="text-muted">هیچ تیکتی یافت نشد.</h4>
+                    <p>شما هنوز تیکتی ثبت نکرده‌اید یا تیکتی وجود ندارد.</p>
+                    <a href="{% url 'create_ticket' %}" class="btn btn-primary mt-3">اولین تیکت خود را ایجاد کنید</a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

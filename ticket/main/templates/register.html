@@ -1,0 +1,9 @@
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="نام کاربری" required>
+    <input type="text" name="first_name" placeholder="نام" required> <!-- حتماً name="first_name" باشد -->
+    <input type="text" name="last_name" placeholder="نام خانوادگی" required>
+    <input type="email" name="email" placeholder="ایمیل">
+    <input type="password" name="password" placeholder="رمز عبور" required>
+    <button type="submit">ثبت نام</button>
+</form>
